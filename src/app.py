@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 st.set_page_config(
     page_title='TOPページ',
     layout='wide',
+    page_icon='🚖'
 )
 
 st.title('シカゴ タクシービッグデータ分析')
