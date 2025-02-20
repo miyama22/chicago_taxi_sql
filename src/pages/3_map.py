@@ -3,7 +3,6 @@ from google.cloud import bigquery
 import pandas as pd
 from keplergl import KeplerGl
 import streamlit.components.v1 as components
-import re
 
 st.set_page_config(
     layout='wide',
@@ -11,10 +10,6 @@ st.set_page_config(
 )
 
 st.title('Mapping')
-
-# JavaScript ファイルの読み込み
-with open('h3-js.umd.js', "r") as f:
-    js_code = f.read()
 
 H3_QUERY = f"""
     CREATE TEMP FUNCTION h3_latLngToCell(lat FLOAT64, lng FLOAT64, res INT64)
@@ -99,7 +94,7 @@ if st.button('地図を表示'):
         html_code = f"""
         {map_html}
         <script>
-        // ページ読み込み後、500ms 後にリサイズイベントを発生させる
+        // ページ読み込み後、10ms 後にリサイズイベントを発生させる
         window.addEventListener('load', function() {{
             setTimeout(function() {{
             window.dispatchEvent(new Event('resize'));
