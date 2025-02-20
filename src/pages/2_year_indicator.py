@@ -30,7 +30,7 @@ def run_query(query_str:str)->pd.DataFrame:
             table = client.get_table(table_ref)
         return client.list_rows(table).to_dataframe()
     except Exception as e:
-        print(f'クエリ実行中にエラーが発声しました:{e}')
+        print(f'クエリ実行中にエラーが発生しました:{e}')
         return None
 
 
@@ -121,7 +121,7 @@ if st.button('チップ発生率クエリ実行'):
     #クエリ実行
     df = run_query(TIP_QUERY)
     if df is None:
-        st.write('クエリ実行中にエラーが発声しました')
+        st.write('クエリ実行中にエラーが発生しました')
     else:
         df['year'] = pd.to_datetime(df['year'], format='%Y')
         st.session_state['df_year'] = df
@@ -221,7 +221,7 @@ if st.button('支払いタイプクエリ実行'):
     #クエリ実行
     df = run_query(TYPE_QUERY)
     if df is None:
-        st.write('クエリ実行中にエラーが発声しました')
+        st.write('クエリ実行中にエラーが発生しました')
     else:
         df['year'] = pd.to_datetime(df['year'], format='%Y')
         st.session_state['df_type'] = df

@@ -98,7 +98,7 @@ def run_query(query_str:str)->pd.DataFrame:
             table = client.get_table(table_ref)
         return client.list_rows(table).to_dataframe()
     except Exception as e:
-        print(f'クエリ実行中にエラーが発声しました:{e}')
+        print(f'クエリ実行中にエラーが発生しました:{e}')
         return None
 
 if st.button('クエリ実行'):
@@ -109,7 +109,7 @@ if st.button('クエリ実行'):
     #クエリ実行
     df = run_query(QUERY)
     if df is None:
-        st.write('クエリ実行中にエラーが発声しました')
+        st.write('クエリ実行中にエラーが発生しました')
     else:
         df['month'] = pd.to_datetime(df['month'], format='%Y-%m')
         st.session_state['df'] = df
