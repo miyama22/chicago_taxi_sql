@@ -10,7 +10,7 @@ st.set_page_config(
     page_icon='🚖'
 )
 
-st.title('Monthly KPI')
+st.title('Company KPI')
 
 QUERY="""
     with
@@ -48,7 +48,7 @@ QUERY="""
         avg(trip_total) as avg_sales_per_customer,
         avg(trip_miles) as avg_miles,
         avg(trip_seconds) as avg_seconds
-
+        --会社と月でgroup by
         from(
         select
             company,

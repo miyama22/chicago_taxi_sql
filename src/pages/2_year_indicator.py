@@ -40,12 +40,14 @@ def run_query(query_str:str)->pd.DataFrame:
 
 TIP_QUERY="""
     with
+    --2019年から2013年までのリストを取得
     year_list as (
         select format_date('%Y', year) as year
         from unnest(
         generate_date_array('2019-01-01', '2023-12-31', interval 1 year)
         ) as year
     ),
+    --会社のリストを取得
     company_list as (
         select distinct company
         from bigquery-public-data.chicago_taxi_trips.taxi_trips
@@ -59,7 +61,7 @@ TIP_QUERY="""
         from company_list
         cross join year_list
     ),
-
+    --集計
     year_indicator as (
         select
         company,
@@ -78,7 +80,7 @@ TIP_QUERY="""
         where company is not null
         group by company, year
     )
-
+    --結合
     select
         company,
         year,
@@ -151,12 +153,14 @@ if st.button('チップ発生率グラフを表示'):
 
 TYPE_QUERY = """
     with
+    --2019年から2023年までの年のリストを取得
     year_list as (
         select format_date('%Y', year) as year
         from unnest(
         generate_date_array('2019-01-01', '2023-12-31', interval 1 year)
         ) as year
     ),
+    --支払い種別のリストを取得
     payment_type_list as (
         select distinct payment_type
         from bigquery-public-data.chicago_taxi_trips.taxi_trips
@@ -170,7 +174,7 @@ TYPE_QUERY = """
         from payment_type_list
         cross join year_list
     ),
-
+    -- 集計
     year_indicator as (
         select
         payment_type,
@@ -186,7 +190,7 @@ TYPE_QUERY = """
         where payment_type is not null
         group by payment_type, year
     )
-
+    --結合
     select
         year,
         payment_type,

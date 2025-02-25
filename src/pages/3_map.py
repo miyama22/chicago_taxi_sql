@@ -12,12 +12,14 @@ st.set_page_config(
 st.title('Mapping')
 
 H3_QUERY = f"""
+    --h3インデックスへの変換関数を定義
     CREATE TEMP FUNCTION h3_latLngToCell(lat FLOAT64, lng FLOAT64, res INT64)
     RETURNS STRING
     LANGUAGE js
     OPTIONS (library=["gs://taxi_h3/h3-js.umd.js"]) AS '''
     return h3.latLngToCell(lat, lng, res);
     ''';
+    --変換と集計
     select
         h3_latLngToCell(pickup_latitude, pickup_longitude, 8) as h3_index_res8,
         count(*) as cnt,
